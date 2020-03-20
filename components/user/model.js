@@ -5,9 +5,9 @@ const Schema = mongoose.Schema
 const mySchema = new Schema({
   name: String,
   user_name: String,
-  email: String
+  email: String,
   // gender: String,
-  // password: String,
+  password: String,
   // phone_number: String,
   // web_site: String,
   // presentation: String,

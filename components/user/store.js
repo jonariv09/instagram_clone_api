@@ -1,7 +1,7 @@
 // here will be all related to [db connection]
 
 const User = require('./model')
-const { connection } = require('../../db')
+const { connection } = require('../../db/db')
 let dbo = null
 
 connection()

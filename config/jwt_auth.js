@@ -1,0 +1,31 @@
+const router = require('express').Router()
+
+const {
+  TOKEN_KEY
+} = process.env
+
+const protectedRoutes = (jwt) => {
+
+  router.post('/', (req, res, next) => {
+    const token = req.headers['access-token']
+
+    if(token) {
+      jwt.verify(token, TOKEN_KEY, (error, decoded) => {
+        if(error) {
+          throw error
+        } else {
+          req.decoded = decoded
+          next()
+        }
+      })
+    } else {
+      res.send({
+        message: "[jwt] Token doesn't provided"
+      })
+    }
+  })
+
+}
+
+module.exports = { protectedRoutes }
+

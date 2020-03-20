@@ -1,6 +1,8 @@
 const userRouter = require('../components/user/network')
+const authenticateRouter = require('../routes/authenticate/authenticate')
 
-const routes = (server) => {
+const routes = (server, jwt) => {
+  server.use('/authenticate', authenticateRouter(jwt))
   server.use('/user', userRouter)
 }
 
