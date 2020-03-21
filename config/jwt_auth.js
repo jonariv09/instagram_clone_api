@@ -1,17 +1,18 @@
 const router = require('express').Router()
+require('dotenv').config()
 
 const {
-  TOKEN_KEY
+  TOKEN_KEY,
 } = process.env
 
 const protectedRoutes = (jwt) => {
 
-  router.post('/', (req, res, next) => {
+  router.use((req, res, next) => {
     const token = req.headers['access-token']
 
-    if(token) {
+    if (token) {
       jwt.verify(token, TOKEN_KEY, (error, decoded) => {
-        if(error) {
+        if (error) {
           throw error
         } else {
           req.decoded = decoded
@@ -20,11 +21,12 @@ const protectedRoutes = (jwt) => {
       })
     } else {
       res.send({
-        message: "[jwt] Token doesn't provided"
+        message: '[jwt] Token doesn\'t provided',
       })
     }
   })
 
+  return router
 }
 
 module.exports = { protectedRoutes }

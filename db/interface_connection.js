@@ -8,7 +8,7 @@ connection()
 
 async function validateAuthentication(user_name, pass) {
   let result = null
-  result = dbo.collection('Users')
+  result = await dbo.collection('Users')
     .find(
       { user_name: { $eq: user_name }, password: { $eq: pass } },
       { user_name: true, password: true })
@@ -18,7 +18,7 @@ async function validateAuthentication(user_name, pass) {
         return userFound
     })
 
-  return await result
+  return result
 }
 
 module.exports = {

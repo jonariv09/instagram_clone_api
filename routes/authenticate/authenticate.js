@@ -1,6 +1,7 @@
 const router = require('express').Router()
+require('dotenv').config()
 const controller = require('../../network/response')
-const { validateAuthentication } = require('../../db/interface')
+const { validateAuthentication } = require('../../db/interface_connection')
 
 const {
   TOKEN_KEY
@@ -16,16 +17,20 @@ module.exports = (jwt) => {
           const token = jwt.sign({ check: true }, TOKEN_KEY, {
             expiresIn: 1440
           })
-          controller.success(req, res, "[jwt] TOKEN_KEY successfully validated", 200)
+
+          controller.success(req, res, {
+            message: "Correct authentication",
+            token: token
+          }, 200)
+
         } else {
           controller.error(req, res, error, 500, "[jwt] User not found")
         }
       })
       .catch(error => {
-        controller.error(req, res, error, 500, "[jwt] Fatal error while validation")
+        controller.error(req, res, error, 500, "[jwt] Fatal error while jwt validation")
       })
 
-    res.send('[authenticate_route][post] Valid request')
   })
 
   return router
