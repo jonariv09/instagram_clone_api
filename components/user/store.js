@@ -1,7 +1,7 @@
 // here will be all related to [db connection]
 
 const User = require('./model')
-const { connection } = require('../../db')
+const { connection } = require('../../db/db')
 let dbo = null
 
 connection()
@@ -14,7 +14,8 @@ async function addUser (user) {
   let userObject = {
     name: user.name,
     user_name: user.user_name,
-    email: user.email
+    email: user.email,
+    password: user.password
   }
 
   const newUser = new User(userObject)
