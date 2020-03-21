@@ -7,10 +7,10 @@ exports.success = function (req, res, message, status) {
     })
 }
 
-exports.error = function (req, res, error, status) {
+exports.error = function (req, res, error, status, message) {
   res.status(status || 500)
     .send({
       error: error,
-      body: ''
+      body: message
     })
 }
