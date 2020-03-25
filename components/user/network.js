@@ -5,20 +5,17 @@ const controller = require('./controller')
 const response = require('../../network/response')
 
 router.get('/', function(req, res) {
-
-  res.send('[user_network] from get')
-
-  // res.send('[user_component] from get')
-  // controller.addUser(req.body.user)
-  //   .then(data => {
-  //
-  // })
+  controller
+    .listUsers()
+    .then(data => {
+      response.success(req, res, data, 200)
+    })
+    .catch(error => {
+      response.error(req, res, error, 500, "Something is grown with the data listed")
+    })
 })
 
 router.post('/', function(req, res) {
-
-  // Validation line
-  // res.send('[user_network] from post')
 
   controller.addUser(req.body.user)
     .then(() => {

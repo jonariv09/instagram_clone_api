@@ -2,6 +2,13 @@
 
 const store = require('./store')
 
+function listUsers() {
+  return new Promise((resolve, reject) => {
+    resolve(store.list())
+  })
+}
+
+
 function addUser (user) {
   return new Promise((resolve, reject) => {
     if (!user) {
@@ -15,6 +22,8 @@ function addUser (user) {
   })
 }
 
+
 module.exports = {
-  addUser
+  addUser,
+  listUsers
 }
