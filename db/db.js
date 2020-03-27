@@ -13,7 +13,8 @@ async function connection () {
   mongoose.Promise = global.Promise
   Connection = await mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASS}@${DB_URI}`, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    dbName: 'instagram_clone',
   }, function (err, db) {
     if (err) {
       throw err

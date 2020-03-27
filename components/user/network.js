@@ -1,4 +1,4 @@
-// here will be all related to http protocol
+// here all will be related to http protocol
 
 const router = require('express').Router()
 const controller = require('./controller')
@@ -6,19 +6,32 @@ const response = require('../../network/response')
 
 router.get('/', function(req, res) {
 
-  res.send('[user_network] from get')
+  if(req.session.user) {
+    controller
+    .listUsers()
+    .then(data => {
+      response.success(req, res, data, 200)
+    })
+    .catch(error => {
+      response.error(req, res, error, 500, "Something is grown with the data listed")
+    })
+  } else {
+    response.error(req, res, "Ups!, You don't access to this zone", 500)
+  }
 
-  // res.send('[user_component] from get')
-  // controller.addUser(req.body.user)
-  //   .then(data => {
-  //
-  // })
+})
+
+router.get('/authentication', function(req, res) {
+  
+})
+
+router.get('/login', function(req, res) {
+
 })
 
 router.post('/', function(req, res) {
 
-  // Validation line
-  // res.send('[user_network] from post')
+  req.session.user = req.user
 
   controller.addUser(req.body.user)
     .then(() => {

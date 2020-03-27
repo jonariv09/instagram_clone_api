@@ -8,6 +8,9 @@ connection()
   .then(data => {
     dbo = data
   })
+  .catch(error => {
+    console.log('[db] There was a error in database connection')
+})
 
 async function addUser (user) {
 
@@ -19,9 +22,20 @@ async function addUser (user) {
   }
 
   const newUser = new User(userObject)
-  await dbo.collection('Users').insertOne(newUser)
+  await dbo.collection('users').insertOne(newUser)
+}
+
+function listUsers() {
+  return dbo.collection('users')
+    .find()
+    .toArray()
+    .then(data => {
+      if(data)
+        return data
+    })
 }
 
 module.exports = {
-  add: addUser
+  add: addUser,
+  list: listUsers
 }
