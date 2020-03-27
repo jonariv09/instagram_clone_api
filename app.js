@@ -11,7 +11,6 @@ const expressSession = require('express-session')
 const expressValidator = require('express-validator')
 const MongoStore = require('connect-mongo')(expressSession)
 
-
 const jwt = require('jsonwebtoken')
 
 const routes = require('./network/routes')
@@ -32,6 +31,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
+
+// session
 app.use(expressSession({
   secret: SESSION_KEY,
   saveUninitialized: true,
