@@ -7,6 +7,12 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const expressSession = require('express-session')
 
+// passport authentication modules
+const passport = require('passport')
+require('./config/oauth/facebook-passport')(passport)
+require('./config/oauth/google-passport')(passport)
+require('./config/auth/passport')(passport)
+
 // express-session mongoose
 const expressValidator = require('express-validator')
 const MongoStore = require('connect-mongo')(expressSession)
@@ -31,14 +37,23 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
-
 // session
-app.use(expressSession({
+const sess = {
   secret: SESSION_KEY,
   saveUninitialized: true,
   resave: true,
-  store: new MongoStore({ mongooseConnection: mongoose.connection })
-}))
+  store: new MongoStore({
+    secret: 'squirrel',
+    mongooseConnection: mongoose.connection,
+    ttl: 14 * 24 * 60 * 60,
+    autoRemove: 'native',
+  })
+}
+app.use(expressSession(sess))
+
+// passport authentication
+app.use(passport.initialize())
+app.use(passport.session())
 
 
 // jsonwebtoken authentication
