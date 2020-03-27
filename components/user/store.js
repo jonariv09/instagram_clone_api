@@ -22,11 +22,11 @@ async function addUser (user) {
   }
 
   const newUser = new User(userObject)
-  await dbo.collection('Users').insertOne(newUser)
+  await dbo.collection('users').insertOne(newUser)
 }
 
 function listUsers() {
-  return dbo.collection('Users')
+  return dbo.collection('users')
     .find()
     .toArray()
     .then(data => {
