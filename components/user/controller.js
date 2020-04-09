@@ -8,8 +8,7 @@ function listUsers() {
   })
 }
 
-
-function addUser (user) {
+function addUser(user) {
   return new Promise((resolve, reject) => {
     if (!user) {
       console.error("[userController] There isn't user")
@@ -22,8 +21,7 @@ function addUser (user) {
   })
 }
 
-
 module.exports = {
   addUser,
-  listUsers
+  listUsers,
 }
