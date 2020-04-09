@@ -23,10 +23,7 @@ const routes = require('./network/routes')
 
 const app = express()
 
-const {
-  SESSION_KEY,
-  PORT
-} = process.env
+const { SESSION_KEY, PORT } = process.env
 
 app.set('port', PORT)
 
@@ -37,7 +34,6 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
-// session
 const sess = {
   secret: SESSION_KEY,
   saveUninitialized: true,
@@ -47,7 +43,7 @@ const sess = {
     mongooseConnection: mongoose.connection,
     ttl: 14 * 24 * 60 * 60,
     autoRemove: 'native',
-  })
+  }),
 }
 app.use(expressSession(sess))
 
@@ -55,10 +51,8 @@ app.use(expressSession(sess))
 app.use(passport.initialize())
 app.use(passport.session())
 
-
 // jsonwebtoken authentication
 routes(app, jwt)
-
 
 // Error management
 // catch 404 and forward to error handler
@@ -70,12 +64,11 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message
-  res.locals.error = req.app.get('env') === 'development' ? err : { }
+  res.locals.error = req.app.get('env') === 'development' ? err : {}
 
   // render the error page
   res.status(err.status || 500)
 })
-
 
 // Server set up
 app.listen(app.get('port'), () => {
