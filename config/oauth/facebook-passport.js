@@ -1,16 +1,16 @@
 require('dotenv').config()
-const FacebookStrategy = require('passport-facebook')
+const FacebookStrategy = require('passport-facebook').Strategy
 const User = require('../../components/user/model')
 
 const { FACEBOOK_APP_ID, FACEBOOK_APP_SECRET } = process.env
 
 module.exports = function (passport) {
   passport.use(
-    FacebookStrategy(
+    new FacebookStrategy(
       {
         clientID: FACEBOOK_APP_ID,
         clientSecret: FACEBOOK_APP_SECRET,
-        callbackURL: 'http://localhost:3000/auth/facebook/callback',
+        callbackURL: 'http://localhost:3000/sign-in/facebook/callback',
         profileFields: [
           'emails',
           'displayName',

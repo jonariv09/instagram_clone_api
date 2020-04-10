@@ -6,12 +6,13 @@ const morgan = require('morgan')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const expressSession = require('express-session')
+const flash = require('flash')
 
 // passport authentication modules
 const passport = require('passport')
 require('./config/oauth/facebook-passport')(passport)
-require('./config/oauth/google-passport')(passport)
-require('./config/auth/passport')(passport)
+// require('./config/oauth/google-passport')(passport)
+// require('./config/auth/passport')(passport)
 
 // express-session mongoose
 const expressValidator = require('express-validator')
@@ -19,7 +20,7 @@ const MongoStore = require('connect-mongo')(expressSession)
 
 const jwt = require('jsonwebtoken')
 
-const routes = require('./network/routes')
+const routes = require('./routes/routes')
 
 const app = express()
 
@@ -50,9 +51,10 @@ app.use(expressSession(sess))
 // passport authentication
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(flash())
 
 // jsonwebtoken authentication
-routes(app, jwt)
+routes(app, jwt, passport)
 
 // Error management
 // catch 404 and forward to error handler

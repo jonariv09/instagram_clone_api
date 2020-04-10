@@ -2,6 +2,7 @@ require('dotenv').config()
 const mongoose = require('mongoose')
 const ObjectId = mongoose.Types.ObjectId
 let Connection = null
+let number = 0
 
 const { DB_USER, DB_PASS, DB_URI } = process.env
 
@@ -18,6 +19,7 @@ async function connection() {
       if (err) {
         throw err
       } else {
+        console.log(++number)
         console.log('[db] Database connected')
         return db
       }

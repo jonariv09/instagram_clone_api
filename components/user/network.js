@@ -25,9 +25,7 @@ router.get('/', function (req, res) {
   }
 })
 
-router.get('/authentication', function (req, res) {})
-
-router.get('/login', function (req, res) {})
+router.get('/', function (req, res) {})
 
 router.post('/', function (req, res) {
   req.session.user = req.user

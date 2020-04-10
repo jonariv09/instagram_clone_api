@@ -2,5 +2,8 @@
   "extends": [
     "plugin:node/recommended",
     "plugin:prettier/recommended"
-  ]
+  ],
+  "rules": {
+    "node/no-unpublished-require": "off"
+  }
 }
