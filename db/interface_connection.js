@@ -1,14 +1,9 @@
-const { connection } = require('./db')
-let dbo = null
-
-connection().then((data) => {
-  dbo = data
-})
+const { DBConnection } = require('./db')
 
 async function validateAuthentication(user_name, pass) {
   let result = null
-  result = await dbo
-    .collection('Users')
+  result = await DBConnection.getInstance()
+    .collection('users')
     .find(
       { user_name: { $eq: user_name }, password: { $eq: pass } },
       { user_name: true, password: true }

@@ -11,7 +11,7 @@ module.exports = (jwt) => {
       .then((userFound) => {
         if (userFound) {
           const token = jwt.sign({ check: true }, TOKEN_KEY, {
-            expiresIn: 1440,
+            expiresIn: 100,
           })
 
           controller.success(

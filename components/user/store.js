@@ -1,16 +1,7 @@
 // here will be all related to [db connection]
 
 const User = require('./model')
-const { connection } = require('../../db/db')
-let dbo = null
-
-connection()
-  .then((data) => {
-    dbo = data
-  })
-  .catch((error) => {
-    console.log('[db] There was a error in database connection')
-  })
+const { DBConnection } = require('../../db/db')
 
 async function addUser(user) {
   let userObject = {
@@ -21,11 +12,11 @@ async function addUser(user) {
   }
 
   const newUser = new User(userObject)
-  await dbo.collection('users').insertOne(newUser)
+  await DBConnection.getInstance().collection('users').insertOne(newUser)
 }
 
 function listUsers() {
-  return dbo
+  return DBConnection.getInstance()
     .collection('users')
     .find()
     .toArray()
