@@ -1,4 +1,4 @@
-// here all will be related to http protocol
+// Http protocol configs
 
 const router = require('express').Router()
 const controller = require('./controller')
@@ -30,7 +30,7 @@ router.get('/authentication', function (req, res) {})
 router.get('/login', function (req, res) {})
 
 router.post('/', function (req, res) {
-  req.session.user = req.user
+  req.session.user = req.body.user
 
   controller
     .addUser(req.body.user)
