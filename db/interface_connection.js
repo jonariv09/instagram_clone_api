@@ -1,7 +1,4 @@
 const { DBConnection } = require('./db')
-let dbo = null
-
-DBConnection.createConnection().then((conn) => DBConnection.setInstance(conn))
 
 async function validateAuthentication(user_name, pass) {
   let result = null

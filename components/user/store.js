@@ -2,7 +2,6 @@
 
 const User = require('./model')
 const { DBConnection } = require('../../db/db')
-let dbo = null
 
 async function addUser(user) {
   let userObject = {
